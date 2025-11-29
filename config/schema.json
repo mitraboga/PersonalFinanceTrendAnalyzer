@@ -1,0 +1,11 @@
+{
+    "standard_columns": {
+        "date": "Transaction date (YYYY-MM-DD recommended)",
+        "description": "Merchant or narrative",
+        "amount": "Numeric absolute amount (positive)",
+        "type": "DEBIT or CREDIT (or -1/+1 sign will be inferred)",
+        "account": "Optional account name/number",
+        "mode": "Optional payment mode: UPI/CARD/NEFT/CASH etc."
+    },
+    "notes": "The pipeline will create a signed_amount column: negative for spend (debit), positive for income (credit)."
+}
