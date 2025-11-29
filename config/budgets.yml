@@ -1,0 +1,17 @@
+# Overall monthly budget (₹). If omitted or null, total cap is ignored.
+monthly_total_cap: 75000
+
+# Alert threshold as a fraction of cap. 0.9 = warn at 90% used.
+warn_threshold: 0.9
+
+# Per-category monthly caps (₹). Add/edit to match your life.
+categories:
+  Food & Dining: 6000
+  Groceries: 8000
+  Transport: 4000
+  Shopping: 10000
+  Utilities & Bills: 3000
+  Rent: 15000
+  Entertainment: 2500
+  Education: 5000
+  Health & Fitness: 3000
