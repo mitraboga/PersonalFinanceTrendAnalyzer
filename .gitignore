@@ -1,6 +1,0 @@
-.env
-venv/
-.venv/
-outputs/
-__pycache__/
-models/*.pkl
