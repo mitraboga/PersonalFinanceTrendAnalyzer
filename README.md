@@ -1,6 +1,6 @@
 # 💸 Personal Finance Trend Analyzer (Streamlit)
 
-Upload your bank/UPI CSV, or Excel → **normalize + categorize** transactions → **visualize KPIs** → **forecast spending** → enforce **budgets & per-category caps** → send **Email/Telegram alerts**.
+Users can upload their bank/UPI CSV, or Excel → **normalize + categorize** transactions → **visualize KPIs** → **forecast spending** → enforce **budgets & per-category caps** → send **Email/Telegram alerts**.
 
 This project is built to feel like a mini “finance command center” — **fast insights**, **real-time budget pressure**, and **actionable alerts**.
 
@@ -59,12 +59,12 @@ This screen shows two different “notification modes”:
 #### ✅ A) Manual Notify (instant testing + instant sending)
 - Button: **Send TEST email (even if no alerts)**
 - Below it: output JSON/response confirming what worked
-- Purpose: verify your SMTP/Telegram config is correct **without needing real budget alerts**
+- Purpose: to verify user SMTP/Telegram config is correct **without needing real budget alerts**
 
 #### ✅ B) Notification Settings (Scheduled Reports)
 - Toggle: **Enable scheduled notifications**
 - Channel toggles: **Email channel**, **Telegram channel**
-- Frequency controls (shown in your screenshot):
+- Frequency controls:
   - Frequency: weekly
   - Send on weekday: Monday
   - Timezone: Asia/Kolkata
@@ -79,7 +79,7 @@ They are separate from the manual “TEST” actions above.
 ![Email Test](2.1_test_email.png)
 
 This screenshot proves:
-- Your app successfully sent an email with the subject:
+- The app successfully sent an email with the subject:
   **“Test email from Personal Finance Trend Analyzer”**
 - Meaning: SMTP creds + sender + recipient flow is working.
 
@@ -117,7 +117,7 @@ This section is designed for instant comprehension.
 2) **Spend by Payment Method**
 3) **Income vs Expense**
 
-These are your “at-a-glance dashboard” so the user understands spending behavior in ~5 seconds.
+This is an “at-a-glance dashboard” that helps the user understand spending behaviour in ~5 seconds.
 
 ---
 
@@ -150,14 +150,14 @@ This section turns the dashboard into a **financial guardrail system**.
 - Donut chart: **Total Budget Utilization**
   - visualizes **Used vs Remaining**
 
-This is the “pressure gauge” of your monthly finances.
+This is the “pressure gauge” of the users' monthly finances.
 
 ---
 
 ### 6) Category Caps (Progress Bars + Table + Export)
 ![Category Caps](6_category_caps.png)
 
-This section is your **category-level budget enforcement**.
+This section is the users' **category-level budget enforcement**.
 
 **What’s shown:**
 - Progress bars per category showing:
@@ -176,11 +176,11 @@ This section is your **category-level budget enforcement**.
 
 **Export processed data**
 - Button: **Download processed CSV**
-- Purpose: you can take the cleaned + categorized output into Excel/Sheets/Power BI.
+- Purpose: users can take the cleaned + categorized output into Excel/Sheets/Power BI.
 
 ---
 
-## 📁 Repo Structure (matches your screenshot)
+## 📁 Repo Structure 
 
 ```text
 .
@@ -204,6 +204,78 @@ This section is your **category-level budget enforcement**.
 ├── README.md
 └── requirements.txt
 ```
+---
+## 🔁 CI/CD (GitHub Actions + Streamlit Community Cloud)
+
+This project is built like a production analytics tool:
+
+- **CI (Continuous Integration)** ensures every change is tested automatically.
+- **CD (Continuous Delivery)** ships the Streamlit UI automatically and runs scheduled reporting/notifications.
+
+---
+
+### CI — Continuous Integration (GitHub Actions)
+
+On every push / pull request, GitHub Actions can:
+
+1. Create a clean Python environment
+2. Install dependencies from `requirements.txt`
+3. Run the test suite with `pytest`
+
+**Why it matters:** prevents regressions in ingestion/cleaning/categorization as the project evolves.
+
+**Typical workflow file:** `.github/workflows/ci.yml`  
+**Typical command:** `pytest -q`
+
+---
+
+### CD — Continuous Delivery (Streamlit Community Cloud + Scheduled Pipelines)
+
+This project uses **two delivery paths**:
+
+#### 1) UI Delivery (Streamlit Community Cloud)
+The **Streamlit dashboard** is deployed via **Streamlit Community Cloud** (free for public apps):
+
+- Connect GitHub repo to Streamlit Cloud
+- Choose `app.py` as the entrypoint
+- Every push to `main` triggers an automatic redeploy
+
+**Result:** the latest version of the dashboard is always live without manual deployment.
+
+#### 2) Automated Delivery of Reports (GitHub Actions Scheduler)
+For a data/ML product, “delivery” also means **shipping outputs** (reports/alerts), not just deploying a web server.
+
+A scheduled GitHub Actions workflow can run daily and:
+
+- Execute `python -m scripts.weekly_summary ... --notify`
+- Generate outputs (CSVs/HTML charts)
+- Send alerts via **Email and/or Telegram**
+- Update `state/notify_state.json` to prevent duplicate sends (idempotent scheduling)
+
+**Result:** production-style automation loop:
+- “Run → generate insights → notify → persist state → repeat”
+
+---
+
+### Secrets & Safety (No Hardcoded Credentials)
+
+Sensitive values are never committed to GitHub. They are stored as:
+
+- **Streamlit Cloud Secrets** (for the dashboard)
+- **GitHub Actions Secrets** (for scheduled notifications)
+
+Examples:
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
+- `EMAIL_FROM`, `EMAIL_TO`
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+
+---
+
+### Summary (Interview-ready)
+
+- ✅ **CI:** GitHub Actions runs tests automatically on each change.
+- ✅ **CD (UI):** Streamlit Community Cloud auto-deploys the dashboard from GitHub.
+- ✅ **CD (Analytics Ops):** Scheduled GitHub Actions runs the pipeline, generates reports, and sends alerts.
 
 ---
 
@@ -228,10 +300,10 @@ source .venv/bin/activate
 -m pip install -r requirements.txt
 ```
 
-### 3) Create your `.env`
-Your repo already has a `.env` file shown in the screenshot — keep it **OUT of git**.
+### 3) Create `.env`
+The repo already has a `.env` file shown in the screenshot — keep it **OUT of git**.
 
-Typical values (names may vary depending on your app code):
+Typical values:
 
 ```env
 # Email (SMTP)
@@ -306,7 +378,7 @@ Run the test suite:
 pytest -q
 ```
 
-Your repo also includes multiple output folders used to validate:
+The repo also includes multiple output folders used to validate:
 - manual tests
 - CLI tests
 - weekly/scheduled-style tests
