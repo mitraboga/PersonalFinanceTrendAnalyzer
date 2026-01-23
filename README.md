@@ -1,4 +1,4 @@
-# 🧠 End-to-End NLP Project 
+# 🧠 End-to-End Data Science NLP Project 
 
 A production-style NLP system that takes raw text → cleans/structures it → trains & evaluates models → serves predictions through a Streamlit UI (+ optional API/CLI). Built to be reproducible, testable, and deployment-ready.
 
