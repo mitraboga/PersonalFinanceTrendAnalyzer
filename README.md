@@ -172,7 +172,7 @@ source .venv/bin/activate
 ### 2) Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+-m pip install -r requirements.txt
 ```
 
 ### 3) Environment Variables
@@ -200,7 +200,7 @@ API_PORT=8000
 ### 4) Run the Streamlit App
 
 ```bash
-streamlit run app.py
+-m streamlit run app.py
 ```
 
 ---
