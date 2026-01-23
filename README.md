@@ -77,9 +77,11 @@ They are separate from the manual “TEST” actions above.
 
 ### 2.1) Email Test Success (Proof)
 
-<a href="assets/2.1_test_email.png" target="_blank">
-  <img src="assets/2.1_test_email.png" alt="Email Test" width="900">
-</a>
+<details>
+  <summary><b>Click to expand (Email Test Screenshot)</b></summary>
+  <br/>
+  <img src="assets/2.1_test_email.png" alt="Email Test" width="1000" />
+</details>
 
 This screenshot proves:
 - The app successfully sent an email with the subject:
@@ -90,9 +92,11 @@ This screenshot proves:
 
 ### 2.2) Telegram Test Success (Phone Notification Proof)
 
-<a href="assets/2.2_test_telegram.png" target="_blank">
-  <img src="assets/2.2_test_telegram.png" alt="Telegram Test" width="450">
-</a>
+<details>
+  <summary><b>Click to expand (Telegram Test Screenshot)</b></summary>
+  <br/>
+  <img src="assets/2.2_test_telegram.png" alt="Telegram Test" width="450" />
+</details>
 
 This screenshot proves:
 - Telegram bot delivery is working
