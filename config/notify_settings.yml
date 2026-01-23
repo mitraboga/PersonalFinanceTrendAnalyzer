@@ -1,0 +1,18 @@
+enabled: true
+
+channels:
+  email: true
+  telegram: true
+
+# options: weekly | biweekly | monthly
+frequency: weekly
+
+# Timezone for “is it due today?”
+timezone: Asia/Kolkata
+
+# Monthly settings (only used if frequency: monthly)
+monthly_day: 1   # 1-28 recommended
+
+# Weekly settings (used for weekly & biweekly)
+# 0=Monday ... 6=Sunday
+weekly_weekday: 0
