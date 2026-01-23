@@ -225,7 +225,7 @@ source .venv/bin/activate
 
 ### 2) Install dependencies
 ```bash
-pip install -r requirements.txt
+-m pip install -r requirements.txt
 ```
 
 ### 3) Create your `.env`
@@ -248,7 +248,7 @@ TELEGRAM_CHAT_ID=123456789
 
 ### 4) Run the app
 ```bash
-streamlit run app.py
+-m streamlit run app.py
 ```
 
 ---
