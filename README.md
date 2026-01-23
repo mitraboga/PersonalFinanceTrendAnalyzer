@@ -33,7 +33,7 @@ This project is built to feel like a mini “finance command center” — **fas
 ## 🖼️ Streamlit Web App Visuals 
 
 ### 1) Home / App Boot Check + “Which app.py is running?”
-![Home](1_home.png)
+![Home](assets/1_home.png)
 
 **What you’re seeing:**
 - Title banner: **Personal Finance Trend Analyzer**
@@ -52,7 +52,7 @@ This project is built to feel like a mini “finance command center” — **fas
 ---
 
 ### 2) Notifications Section (Manual Notify + Scheduled Settings)
-![Notifications UI](2_notifications_section.png)
+![Notifications UI](assets/2_notifications_section.png)
 
 This screen shows two different “notification modes”:
 
@@ -76,7 +76,7 @@ They are separate from the manual “TEST” actions above.
 ---
 
 ### 2.1) Email Test Success (Proof)
-![Email Test](2.1_test_email.png)
+![Email Test](assets/2.1_test_email.png)
 
 This screenshot proves:
 - The app successfully sent an email with the subject:
@@ -86,7 +86,7 @@ This screenshot proves:
 ---
 
 ### 2.2) Telegram Test Success (Phone Notification Proof)
-![Telegram Test](2.2_test_telegram.png)
+![Telegram Test](assets/2.2_test_telegram.png)
 
 This screenshot proves:
 - Telegram bot delivery is working
@@ -103,7 +103,7 @@ In short: the app doesn’t just “notify” — it sends **action-ready contex
 ---
 
 ### 3) Quick Snapshot (3 Donut Charts)
-![Donut Charts](3_donut_charts.png)
+![Donut Charts](assets/3_donut_charts.png)
 
 This section is designed for instant comprehension.
 
@@ -122,7 +122,7 @@ This is an “at-a-glance dashboard” that helps the user understand spending b
 ---
 
 ### 4) Forecasting Visuals (Category + Trend + Forecast Slider)
-![Forecasting](4_forcasting_visuals.png)
+![Forecasting](assets/4_forcasting_visuals.png)
 
 This section answers: **“Where is my spending going next?”**
 
@@ -140,7 +140,7 @@ The purpose is to project spending forward so budgets can be proactive, not reac
 ---
 
 ### 5) Budgets & Alerts (Critical Notify + Utilization Donut)
-![Budgets & Alerts](5_budget_alerts.png)
+![Budgets & Alerts](assets/5_budget_alerts.png)
 
 This section turns the dashboard into a **financial guardrail system**.
 
@@ -155,7 +155,7 @@ This is the “pressure gauge” of the users' monthly finances.
 ---
 
 ### 6) Category Caps (Progress Bars + Table + Export)
-![Category Caps](6_category_caps.png)
+![Category Caps](assets/6_category_caps.png)
 
 This section is the users' **category-level budget enforcement**.
 
