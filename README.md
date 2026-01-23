@@ -1,502 +1,340 @@
-# 🧠 End-to-End Data Science NLP Project 
+# 💸 Personal Finance Trend Analyzer (Streamlit)
 
-A production-style NLP system that takes raw text → cleans/structures it → trains & evaluates models → serves predictions through a Streamlit UI (+ optional API/CLI). Built to be reproducible, testable, and deployment-ready.
+Upload your bank/UPI CSV, or Excel → **normalize + categorize** transactions → **visualize KPIs** → **forecast spending** → enforce **budgets & per-category caps** → send **Email/Telegram alerts**.
 
----
-
-## Demo
-
-**Main App (Streamlit):**
-- Paste text or upload a file
-- Run predictions (sentiment/topic/intent/etc.)
-- View confidence + insights
-- Export results
-
-**Add your screenshots here (these will render on GitHub):**
-- `assets/ui/01-home.png`
-- `assets/ui/02-input.png`
-- `assets/ui/03-results.png`
-- `assets/ui/04-insights.png`
-- `assets/ui/05-batch.png`
-- `assets/ui/06-model.png`
+This project is built to feel like a mini “finance command center” — **fast insights**, **real-time budget pressure**, and **actionable alerts**.
 
 ---
 
-## What This Project Does
+## ✅ What this app does (end-to-end)
 
-This project builds an end-to-end NLP pipeline that:
-
-1) **Ingests** raw text (CSV/JSON/text box)  
-2) **Preprocesses** (cleaning, normalization, tokenization/encoding)  
-3) **Trains** models (transformer + classical baselines)  
-4) **Evaluates** with meaningful metrics + error analysis  
-5) **Serves** predictions via:
-   - ✅ **Streamlit web app** for interactive use
-   - ✅ Optional **API** for programmatic use
-   - ✅ Optional **CLI** for local/batch runs  
-6) **Operationalizes**: reproducible runs, saved artifacts, tests, and a deploy-friendly workflow
-
----
-
-## Key Features
-
-### ✅ Modeling
-- Transformer pipeline (fine-tuning) + classical baselines (e.g., Logistic Regression / SVM)
-- Config-driven training (swap models without rewriting logic)
-- Model artifacts + metadata saved per run (run-id/versioned folders)
-
-### ✅ Evaluation
-- Metrics: Accuracy / Precision / Recall / F1 (macro + weighted)
-- Confusion matrix + class-wise report
-- Error analysis: hardest samples, frequent confusion pairs
-
-### ✅ Inference
-- Single text inference (Streamlit + CLI)
-- Batch inference (CSV in → CSV out)
-- Confidence scores + probabilities (when available)
-
-### ✅ Production-Ready Engineering
-- Modular pipeline: ingestion → preprocessing → training → evaluation → serving
-- `.env` support for environment configuration
-- Docker-friendly layout
-- Tests + CI-ready structure
+1) **Upload** a CSV/XLSX of transactions (or click **Use sample data**)  
+2) App **cleans + normalizes** columns (dates, amounts, categories, payment methods)  
+3) Builds KPIs and charts:
+   - total spend, income, months covered
+   - category breakdown + trend charts
+   - donut snapshot (3 perspectives)
+4) Runs **forecasting** for upcoming months (slider-controlled)
+5) Applies **budgets**:
+   - TOTAL cap
+   - PER-CATEGORY caps
+6) Sends **alerts**:
+   - **NEAR** (close to limit)
+   - **OVER** (exceeded)
+7) Notification channels:
+   - Email (SMTP)
+   - Telegram (Bot + chat_id)
+8) Supports both:
+   - Manual “Send now / Test” notifications
+   - Scheduled notification settings UI (for automation workflows)
 
 ---
 
-## System Overview
+## 🖼️ Streamlit Web App Visuals 
 
-High-level flow:
+### 1) Home / App Boot Check + “Which app.py is running?”
+![Home](1_home.png)
 
-```text
-Raw Data/Text
-   │
-   ▼
-Ingestion (load + validate)
-   │
-   ▼
-Preprocessing (clean/tokenize/encode)
-   │
-   ▼
-Training (fit model + save artifacts)
-   │
-   ▼
-Evaluation (metrics + reports)
-   │
-   ▼
-Serving
- ├─ Streamlit UI (interactive)
- └─ API/CLI (optional)
-```
+**What you’re seeing:**
+- Title banner: **Personal Finance Trend Analyzer**
+- Left sidebar “How to use” checklist:
+  1. Upload CSV/Excel or use sample data  
+  2. Review processed table (optional)  
+  3. Explore KPIs & charts  
+  4. Adjust forecast months  
+  5. Configure budgets in `config/budgets.yml`
+
+**The “Debug: Which app.py is running?” expander:**
+- Shows `__file__`, working directory, Python path, Streamlit version
+- This is a **safety check** so you never accidentally run the wrong file from the wrong folder.
+- It even prints the correct command to run Streamlit using an absolute path.
 
 ---
 
-## Tech Stack
+### 2) Notifications Section (Manual Notify + Scheduled Settings)
+![Notifications UI](2_notifications_section.png)
 
-- Python
-- Streamlit
-- Pandas / NumPy
-- scikit-learn
-- Transformers + PyTorch (if transformer fine-tuning is used)
-- Matplotlib (optional visuals)
-- pytest (tests)
-- Docker (optional deployment)
+This screen shows two different “notification modes”:
+
+#### ✅ A) Manual Notify (instant testing + instant sending)
+- Button: **Send TEST email (even if no alerts)**
+- Below it: output JSON/response confirming what worked
+- Purpose: verify your SMTP/Telegram config is correct **without needing real budget alerts**
+
+#### ✅ B) Notification Settings (Scheduled Reports)
+- Toggle: **Enable scheduled notifications**
+- Channel toggles: **Email channel**, **Telegram channel**
+- Frequency controls (shown in your screenshot):
+  - Frequency: weekly
+  - Send on weekday: Monday
+  - Timezone: Asia/Kolkata
+- Button: **Save notification settings**
+
+⚠️ Important: these scheduled settings are meant for automation (like scheduled runs / CI jobs).  
+They are separate from the manual “TEST” actions above.
 
 ---
 
-## Repository Structure
+### 2.1) Email Test Success (Proof)
+![Email Test](2.1_test_email.png)
 
-If your repo already has different names, keep your actual names—this structure shows the intended separation of concerns.
+This screenshot proves:
+- Your app successfully sent an email with the subject:
+  **“Test email from Personal Finance Trend Analyzer”**
+- Meaning: SMTP creds + sender + recipient flow is working.
+
+---
+
+### 2.2) Telegram Test Success (Phone Notification Proof)
+![Telegram Test](2.2_test_telegram.png)
+
+This screenshot proves:
+- Telegram bot delivery is working
+- The message includes the **budget severity** label:
+  - **[NEAR]** (approaching limit)
+- It includes a readable summary like:
+  - Month
+  - Spend
+  - Cap
+  - Remaining
+
+In short: the app doesn’t just “notify” — it sends **action-ready context**.
+
+---
+
+### 3) Quick Snapshot (3 Donut Charts)
+![Donut Charts](3_donut_charts.png)
+
+This section is designed for instant comprehension.
+
+**Top KPIs displayed:**
+- **Total Spend (₹)**
+- **Total Income (₹)**
+- **Months Covered**
+
+**The 3 donut chart perspectives:**
+1) **Spend by Category**
+2) **Spend by Payment Method**
+3) **Income vs Expense**
+
+These are your “at-a-glance dashboard” so the user understands spending behavior in ~5 seconds.
+
+---
+
+### 4) Forecasting Visuals (Category + Trend + Forecast Slider)
+![Forecasting](4_forcasting_visuals.png)
+
+This section answers: **“Where is my spending going next?”**
+
+**Visuals shown:**
+- **Spend by Category (bar chart)**
+- **Monthly Spend Trend (line chart)**
+
+**Forecast block:**
+- Slider: **Forecast months**
+- Chart: **Monthly Spend Forecast**
+  - shows history vs forecast lines
+
+The purpose is to project spending forward so budgets can be proactive, not reactive.
+
+---
+
+### 5) Budgets & Alerts (Critical Notify + Utilization Donut)
+![Budgets & Alerts](5_budget_alerts.png)
+
+This section turns the dashboard into a **financial guardrail system**.
+
+**Key elements:**
+- Button: **Send critical alerts (NEAR/OVER) now**
+  - sends real alerts based on the current dataset + budget rules
+- Donut chart: **Total Budget Utilization**
+  - visualizes **Used vs Remaining**
+
+This is the “pressure gauge” of your monthly finances.
+
+---
+
+### 6) Category Caps (Progress Bars + Table + Export)
+![Category Caps](6_category_caps.png)
+
+This section is your **category-level budget enforcement**.
+
+**What’s shown:**
+- Progress bars per category showing:
+  - spend vs cap
+  - percent used
+  - status: **OK / NEAR / OVER**
+- A detailed table with columns like:
+  - scope (CATEGORY / TOTAL)
+  - category
+  - month
+  - spend
+  - cap
+  - remaining
+  - pct
+  - status
+
+**Export processed data**
+- Button: **Download processed CSV**
+- Purpose: you can take the cleaned + categorized output into Excel/Sheets/Power BI.
+
+---
+
+## 📁 Repo Structure (matches your screenshot)
 
 ```text
 .
-├── app.py                      # Streamlit entry point
-├── src/
-│   ├── pipeline/
-│   │   ├── ingestion.py         # load/validate datasets
-│   │   ├── preprocessing.py     # cleaning + tokenization/encoding
-│   │   ├── features.py          # vectorizers/encoders
-│   │   ├── train.py             # training loop
-│   │   ├── evaluate.py          # metrics + reports
-│   │   └── infer.py             # inference utilities
-│   ├── models/
-│   │   ├── registry.py          # load/save model artifacts
-│   │   └── baselines.py         # classical baseline models
-│   ├── utils/
-│   │   ├── config.py            # config parsing
-│   │   ├── io.py                # file helpers
-│   │   └── logging.py           # consistent logging
-│   └── api/                     # optional FastAPI service
-│       ├── main.py
-│       └── schemas.py
-├── configs/
-│   ├── train.yaml               # training configuration
-│   └── infer.yaml               # inference configuration
-├── data/
-│   ├── raw/                     # original data
-│   ├── processed/               # cleaned/encoded data
-│   └── sample/                  # tiny sample for quick testing
-├── artifacts/
-│   ├── models/                  # saved models
-│   ├── reports/                 # metrics, confusion matrix, etc.
-│   └── logs/
-├── tests/
-│   ├── test_preprocessing.py
-│   ├── test_infer.py
-│   └── test_training_smoke.py
-├── assets/
-│   └── ui/                      # Streamlit screenshots live here
-├── requirements.txt
-├── .env.example
+├── .github/                 # workflows / actions (optional automation)
+├── .pytest_cache/           # pytest cache
+├── .venv/                   # local virtual environment (ignored in git)
+├── .vscode/                 # editor settings
+├── config/                  # configuration (budgets, rules, etc.)
+├── data/                    # sample / raw input files (optional)
+├── outputs/                 # generated outputs (processed files, exports, etc.)
+├── outputs_cli_test/        # CLI testing outputs
+├── outputs_test/            # test artifacts
+├── outputs_weekly_test/     # scheduled-run style test outputs
+├── pipeline/                # core data pipeline logic
+├── scripts/                 # helper scripts (batch runs, utilities)
+├── state/                   # saved settings/state (scheduled notify settings, etc.)
+├── tests/                   # pytest test suite
+├── .env                     # secrets (SMTP/Telegram) - DO NOT COMMIT
+├── assets                   # screenshots of the streamlit web application
+├── app.py                   # Streamlit app entry point
 ├── README.md
-└── LICENSE
+└── requirements.txt
 ```
 
 ---
 
-## Getting Started
+## ⚙️ Setup
 
-### 1) Clone & Create a Virtual Environment
+### 1) Create + activate a virtual environment
 
-
-git clone <YOUR_REPO_URL>
-cd <YOUR_REPO_NAME>
-
-python -m venv .venv
-
-# Windows:
-.venv\Scripts\activate
-
-# macOS/Linux:
-source .venv/bin/activate
-
-### 2) Install Dependencies
-
+**Windows**
 ```bash
--m pip install -r requirements.txt
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
-### 3) Environment Variables
-
-Copy the template and edit as needed:
-
-
-cp .env.example .env
+**macOS/Linux**
+```bash
+python -m venv .venv
+source .venv/bin/activate
 ```
 
-Example `.env.example`:
+### 2) Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3) Create your `.env`
+Your repo already has a `.env` file shown in the screenshot — keep it **OUT of git**.
+
+Typical values (names may vary depending on your app code):
 
 ```env
-APP_ENV=dev
-SEED=42
+# Email (SMTP)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+ALERT_EMAIL_TO=destination_email@gmail.com
 
-ARTIFACTS_DIR=artifacts
-MODEL_DIR=artifacts/models
-
-# Optional API
-API_HOST=0.0.0.0
-API_PORT=8000
+# Telegram
+TELEGRAM_BOT_TOKEN=123456:ABCDEF...
+TELEGRAM_CHAT_ID=123456789
 ```
 
-### 4) Run the Streamlit App
-
+### 4) Run the app
 ```bash
--m streamlit run app.py
+streamlit run app.py
 ```
 
 ---
 
-## Data Format
-
-### Common Classification Dataset Format (CSV)
-
-A typical dataset for sentiment/intent/topic classification:
-
-```csv
-text,label
-"Delivery was fast and smooth",positive
-"Support was unhelpful",negative
-```
-
-Recommended sample locations:
+## 🧠 How the pipeline works (high-level)
 
 ```text
-data/sample/train.csv
-data/sample/valid.csv
-```
-
-If your app supports batch inference, a minimal unlabeled file often looks like:
-
-```csv
-text
-"My order arrived early"
-"The UI keeps crashing"
+Upload CSV/XLSX
+   ↓
+Normalize columns (dates, amounts, type)
+   ↓
+Categorize spend (rules + defaults)
+   ↓
+Aggregate monthly KPIs + groupby metrics
+   ↓
+Charts + donuts + trends
+   ↓
+Forecast (months slider → forward projection)
+   ↓
+Budget engine:
+   - TOTAL cap
+   - CATEGORY caps
+   ↓
+Alert engine:
+   OK / NEAR / OVER
+   ↓
+Notify:
+   - TEST email/telegram
+   - Send critical alerts now
+   - Scheduled settings saved for automation
 ```
 
 ---
 
-## Training
+## 🧾 Budgets Configuration
 
-Update these commands if your repo uses different entry points.
+From your sidebar instructions, budgets are configured here:
 
-### Train (Config-Driven)
+- `config/budgets.yml`
 
-```bash
-python -m src.pipeline.train --config configs/train.yaml
-```
-
-### Expected Outputs
-
-After training, you should see something like:
-
-```text
-artifacts/models/<run_id>/model.pkl   (or model.pt)
-artifacts/models/<run_id>/metadata.json
-artifacts/reports/<run_id>/metrics.json
-artifacts/reports/<run_id>/confusion_matrix.png
-```
+That file typically controls:
+- TOTAL monthly cap
+- per-category caps (Rent, Shopping, Transport, etc.)
+- thresholds used to classify:
+  - **NEAR** (approaching cap)
+  - **OVER** (exceeded cap)
 
 ---
 
-## Evaluation
+## ✅ Testing
 
-```bash
-python -m src.pipeline.evaluate --model_dir artifacts/models/<run_id> --data data/sample/valid.csv
-```
-
-Recommended evaluation outputs:
-
-- Accuracy / Macro-F1 / Weighted-F1
-- Confusion matrix
-- Class-wise precision/recall
-- “Top failure cases” table (text + predicted + actual)
-
----
-
-## Inference
-
-### Single Text (CLI)
-
-```bash
-python -m src.pipeline.infer --model_dir artifacts/models/<run_id> --text "Your text here"
-```
-
-### Batch Inference (CSV)
-
-```bash
-python -m src.pipeline.infer --model_dir artifacts/models/<run_id> --input data/sample/unlabeled.csv --output artifacts/predictions.csv
-```
-
----
-
-## Streamlit UI Walkthrough (Screenshots + Explanations)
-
-Create the folder:
-
-```bash
-mkdir -p assets/ui
-```
-
-Save screenshots inside it using these exact names:
-
-```text
-01-home.png
-02-input.png
-03-results.png
-04-insights.png
-05-batch.png
-06-model.png
-```
-
-Then add them to GitHub, and they will render automatically below.
-
----
-
-### 1) Home / Overview
-
-![Home Screen](assets/ui/01-home.png)
-
-What this section shows:
-
-```text
-- What the project does (the NLP task(s) supported)
-- How to use the app in ~10 seconds
-- Current model version / run ID (recommended)
-```
-
-What to mention in your explanation:
-
-```text
-- The supported tasks (e.g., sentiment, intent, topic)
-- Any constraints (max text length, supported file types)
-- The “happy path” flow: paste → predict → inspect → export
-```
-
----
-
-### 2) Input Panel (Paste Text / Upload File)
-
-![Input Panel](assets/ui/02-input.png)
-
-What this section does:
-
-```text
-- Accepts raw input text for instant prediction
-- Supports file upload for batch predictions
-- Validates input and shows helpful error messages
-```
-
-Document these details:
-
-```text
-- Supported upload types (.csv, .txt, .json)
-- Required columns (typically: text)
-- Example text users can copy/paste
-```
-
----
-
-### 3) Prediction Results (Main Output)
-
-![Results Panel](assets/ui/03-results.png)
-
-What this section explains:
-
-```text
-- Predicted label (sentiment/topic/intent/etc.)
-- Confidence score (and what it means)
-- Extra metadata (probabilities, top keywords, etc.)
-```
-
-Recommended to include:
-
-```text
-- How confidence is computed (softmax probability, calibrated score, etc.)
-- What users should do if confidence is low
-```
-
----
-
-### 4) Insights / Explainability (If Included)
-
-![Insights](assets/ui/04-insights.png)
-
-What this section explains:
-
-```text
-- Why the model predicted what it predicted
-- Highlighted tokens/keywords (if available)
-- Common failure cases + limitations
-```
-
-Recommended additions:
-
-```text
-- “Known limitations” list (sarcasm, domain shift, slang, etc.)
-- Small guidance note for best input quality
-```
-
----
-
-### 5) Batch Predictions (Table + Export)
-
-![Batch Predictions](assets/ui/05-batch.png)
-
-What this section explains:
-
-```text
-- Preview of uploaded rows
-- How predictions are appended
-- Export/download results file
-```
-
-Typical output columns:
-
-```text
-- prediction
-- confidence
-- optional: per-class probabilities
-```
-
----
-
-### 6) Model & Experiment Info (Reproducibility)
-
-![Model Details](assets/ui/06-model.png)
-
-What this section explains:
-
-```text
-- Model type/name (baseline vs transformer)
-- Training data version + preprocessing version
-- Metrics snapshot
-- Run ID and artifact path
-```
-
----
-
-## Docker (Optional)
-
-### Build
-
-```bash
-docker build -t nlp-streamlit .
-```
-
-### Run
-
-```bash
-docker run -p 8501:8501 nlp-streamlit
-```
-
----
-
-## Testing
+Run the test suite:
 
 ```bash
 pytest -q
 ```
 
-Recommended tests:
-
-```text
-- Preprocessing correctness
-- Inference returns expected schema
-- Training “smoke test” on sample data
-```
+Your repo also includes multiple output folders used to validate:
+- manual tests
+- CLI tests
+- weekly/scheduled-style tests
 
 ---
 
-## CI/CD (Recommended)
+## 🚀 Roadmap (easy upgrades)
 
-Suggested GitHub Actions checks:
-
-```text
-- Lint (ruff/flake8)
-- Tests (pytest)
-- Docker build (if used)
-- Optional: training smoke test on tiny sample data
-```
+- Add merchant-level insights (top merchants + month-over-month shifts)
+- Add recurring bill detection
+- Add anomaly detection (sudden spikes)
+- Add multi-account / multi-file merging
+- Add Streamlit Community Cloud deployment guide
 
 ---
 
-## Roadmap
+## 👤 Author
 
-```text
-- Add model monitoring + drift detection
-- Add active learning loop (collect hard examples)
-- Add caching for faster inference
-- Add experiment tracking (MLflow/W&B)
-- Add API auth + rate limiting
-```
+<p align="center">
+  <b style="font-size:18px;">Mitra Boga</b><br/><br/>
 
----
+  <!-- LinkedIn: true blue label + lighter-blue username block -->
+  <a href="https://www.linkedin.com/in/bogamitra/" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/LinkedIn-bogamitra-4DA3FF?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0A66C2" />
+  </a>
 
-## License
-
-Choose one:
-
-```text
-- MIT
-- Apache-2.0
-- GPL-3.0
-```
+  <!-- X: near-black label + darker-gray username block (dark-mode friendly) -->
+  <a href="https://x.com/techtraboga" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/X-@techtraboga-3A3F45?style=for-the-badge&logo=x&logoColor=white&labelColor=111418" />
+  </a>
+</p>
