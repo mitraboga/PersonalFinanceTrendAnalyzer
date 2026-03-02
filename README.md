@@ -1,4 +1,28 @@
-# 💸 Personal Finance Trend Analyzer (Streamlit)
+<h1 align="center">💵 Personal Finance Trend Analyzer (Streamlit) 💳</h1>
+<h3 align="center">Streamlit Dashboard + Budget Guardrails + Forecasting + Email/Telegram Alerts</h3>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12-blue?logo=python" alt="Python" />
+  <img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/Pandas-Data%20Wrangling-150458?logo=pandas&logoColor=white" alt="Pandas" />
+  <img src="https://img.shields.io/badge/NumPy-Arrays-013243?logo=numpy&logoColor=white" alt="NumPy" />
+  <img src="https://img.shields.io/badge/Forecasting-Time%20Series-6A5ACD" alt="Forecasting" />
+  <img src="https://img.shields.io/badge/Task-Personal%20Finance-0F9D58" alt="Personal Finance" />
+  <img src="https://img.shields.io/badge/Feature-Budget%20Alerts-E53935" alt="Budget Alerts" />
+  <img src="https://img.shields.io/badge/Notifications-Email%20%2B%20Telegram-0088CC?logo=telegram&logoColor=white" alt="Email + Telegram" />
+  <img src="https://img.shields.io/badge/Export-CSV%20Ready-2ea44f" alt="CSV Export" />
+  <img src="https://img.shields.io/badge/Testing-pytest-0A9EDC" alt="pytest" />
+  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions" />
+  <img src="https://img.shields.io/badge/Deploy-Streamlit%20Community%20Cloud-FF4B4B?logo=streamlit&logoColor=white" alt="Streamlit Cloud" />
+</p>
+
+---
+
+<p align="center">
+  <a href="https://mitraboga.github.io/EarningsCallSentimentAnalysis/" target="_blank" rel="noopener noreferrer">
+    <img src="GIF/PowerBI_Dashboard_Preview.gif" width="95%" alt="Live PowerBI Dashboard Preview"/>
+  </a>
+</p>
 
 Users can upload their bank/UPI CSV, or Excel → **normalize + categorize** transactions → **visualize KPIs** → **forecast spending** → enforce **budgets & per-category caps** → send **Email/Telegram alerts**.
 
