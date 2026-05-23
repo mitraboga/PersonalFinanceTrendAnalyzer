@@ -1,4 +1,4 @@
-<h1 align="center">💵 Personal Finance Trend Analyzer (Streamlit) 💳</h1>
+<h1 align="center">💵 Personal Finance Trend Analyzer 💳</h1>
 <h3 align="center">Streamlit Dashboard + Budget Guardrails + Forecasting + Email/Telegram Alerts</h3>
 
 <p align="center">
